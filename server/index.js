@@ -27,5 +27,4 @@ const start = async () => {
 }
 
 start()
-// git remote add origin https://github.com/AzizbekAslonov/fullAuth.git
-// git push -u origin master
+// https://youtu.be/fN25fMQZ2v0?t=3344
