@@ -67,6 +67,7 @@ class UserController {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true
             })
+            return res.json(userData)
         } catch (error) {
             return next(error)
         }

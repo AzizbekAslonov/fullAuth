@@ -3,7 +3,7 @@ const { v4: uuid } = require('uuid')
 
 const ApiError = require('../exeptions/apiError')
 const UserDto = require('../dtos/userDto')
-const { User } = require('../models')
+const { User, Token } = require('../models')
 const mailService = require('./mailService')
 const tokenService = require('./tokenService')
 
@@ -18,7 +18,6 @@ class UserService {
         const hashPassword = await bcrypt.hash(password, 3)
         const activationLink = uuid()
         const user = await User.create({ email, password: hashPassword, activationLink })
-
         // await mailService.sendActivationMail(email, activationLink)
 
         const userDto = new UserDto(user)
@@ -69,6 +68,7 @@ class UserService {
 
         const userData = tokenService.validateRefresh(refreshToken)
         const tokenFromDb = await tokenService.findToken(refreshToken)
+
         if (!userData || !tokenFromDb) throw ApiError.UnauthorizedError()
 
         const user = await User.findByPk(userData.id)
